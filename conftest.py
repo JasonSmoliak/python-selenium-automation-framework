@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")
