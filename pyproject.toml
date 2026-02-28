@@ -1,2 +1,6 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "smoke: quick validation tests",
+    "regression: full regression coverage",
+]
