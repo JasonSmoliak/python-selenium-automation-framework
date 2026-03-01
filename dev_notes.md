@@ -21,3 +21,6 @@
 - `git add .`
 - `git commit -m "Describe change"`
 - `git push`
+
+## Run smoke only
+- `python -m pytest -m smoke -q`
