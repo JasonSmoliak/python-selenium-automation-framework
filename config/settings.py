@@ -1,1 +1,3 @@
-BASE_URL = "https://example.com"
+import os
+
+BASE_URL = os.getenv("BASE_URL", "https://example.com")
