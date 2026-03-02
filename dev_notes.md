@@ -24,3 +24,4 @@
 
 ## Run smoke only
 - `python -m pytest -m smoke -q`
+- Smoke includes both UI + API tests marked `smoke`.
