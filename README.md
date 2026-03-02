@@ -32,9 +32,25 @@ python-selenium-automation-framework/
 
 ## How to Run
 
-```bash
-python -m pytest
-```
+### Run full test suite
+`make test`
+
+### Run smoke tests (UI + API)
+`make smoke`
+
+### Run regression tests
+`make regression`
+
+### Run UI tests only
+`make ui`
+
+### Run API tests only
+`make api`
+
+### Generate HTML report
+`make report`
+Then open:
+`open reports/report.html`
 
 ## Status
 
