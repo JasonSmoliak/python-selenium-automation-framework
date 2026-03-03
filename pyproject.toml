@@ -3,4 +3,7 @@ testpaths = ["tests"]
 markers = [
     "smoke: quick validation tests",
     "regression: full regression coverage",
+    "ui: browser-based UI tests",
+    "api: API tests using requests",
+    "flaky: tests that may be rerun on failure",
 ]

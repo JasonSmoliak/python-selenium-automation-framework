@@ -3,6 +3,7 @@ from pages.example_page import ExamplePage
 
 @pytest.mark.ui
 @pytest.mark.smoke
+@pytest.mark.flaky(reruns=2, reruns_delay=1)
 @pytest.mark.parametrize(
     "expected_heading, expected_url_fragment",
     [

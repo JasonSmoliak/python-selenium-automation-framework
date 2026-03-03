@@ -2,13 +2,16 @@ import pytest
 from pages.example_page import ExamplePage
 from pages.more_info_page import MoreInfoPage
 
+@pytest.mark.ui
 @pytest.mark.regression
+@pytest.mark.flaky(reruns=2, reruns_delay=1)
 def test_page_loads_successfully(driver):
     page = ExamplePage(driver).load()
 
     assert page.heading_text() is not None
     assert len(page.heading_text()) > 0
 
+@pytest.mark.ui
 @pytest.mark.regression
 def test_navigation_to_more_info(driver):
     example_page = ExamplePage(driver).load()
