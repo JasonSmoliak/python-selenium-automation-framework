@@ -8,6 +8,7 @@ from schemas.post_schema import POST_SCHEMA
 @pytest.mark.smoke
 @pytest.mark.parametrize("endpoint, expected_status", [
     ("/posts/1", 200),
+    ("/posts/2", 200),
 ])
 def test_example_api_success(endpoint, expected_status):
     response = get(endpoint)
