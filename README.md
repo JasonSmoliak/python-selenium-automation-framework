@@ -52,6 +52,37 @@ python-selenium-automation-framework/
 Then open:
 `open reports/report.html`
 
+## CI (GitHub Actions)
+
+This repository includes a GitHub Actions workflow that runs the full pytest suite automatically on every push and pull request.
+
+## Test Organization
+
+Tests are categorized using pytest markers:
+
+- `smoke`: fast critical checks
+- `regression`: broader suite
+- `ui`: Selenium browser-based tests
+- `api`: API tests using requests + schema validation
+
+Examples:
+- Run only UI tests: `make ui`
+- Run only API tests: `make api`
+- Run smoke suite: `make smoke`
+
+## Reporting
+
+HTML test reports can be generated locally using pytest-html:
+
+- `make report`
+- `open reports/report.html`
+
+> Note: `reports/` is gitignored because reports are generated artifacts.
+
+## Flaky Test Mitigation
+
+UI tests may be retried on transient failures using pytest-rerunfailures (limited reruns + small delay). Retries are used as a safety net; root causes are addressed with stable locators, explicit waits, and test isolation.
+
 ## Status
 
 Initial framework scaffold complete.
