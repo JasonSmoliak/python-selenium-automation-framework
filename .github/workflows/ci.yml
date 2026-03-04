@@ -33,7 +33,17 @@ jobs:
         env:
           BASE_URL: https://example.com
         run: |
-          python -m pytest -m smoke -q
+            mkdir -p reports screenshots
+            python -m pytest -m smoke -q --html=reports/smoke_report.html --self-contained-html
+
+- name: Upload test artifacts (smoke)
+  if: always()
+  uses: actions/upload-artifact@v4
+  with:
+    name: smoke-artifacts
+    path: |
+      reports/
+      screenshots/
 
   ui-regression:
     name: UI regression (scheduled/manual)
@@ -57,4 +67,14 @@ jobs:
         env:
           BASE_URL: https://example.com
         run: |
-          python -m pytest -m ui -q --reruns 2 --reruns-delay 1
+ 	 mkdir -p reports screenshots
+ 	 python -m pytest -m ui -q --reruns 2 --reruns-delay 1 --html=reports/ui_report.html --self-contained-html
+
+- name: Upload test artifacts (ui)
+  if: always()
+  uses: actions/upload-artifact@v4
+  with:
+    name: ui-artifacts
+    path: |
+      reports/
+      screenshots/
