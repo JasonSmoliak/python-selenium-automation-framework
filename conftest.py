@@ -22,8 +22,8 @@ def driver():
     driver.quit()
 
 import os
+import re
 import pytest
-
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -32,10 +32,17 @@ def pytest_runtest_makereport(item, call):
 
     if report.when == "call" and report.failed:
         driver = item.funcargs.get("driver")
-        if driver:
+        if not driver:
+            return
+
+        try:
             os.makedirs("screenshots", exist_ok=True)
-            screenshot_path = os.path.join(
-                "screenshots",
-                f"{item.name}.png"
-            )
+
+            # Use nodeid (more unique) and sanitize for filesystem safety
+            safe_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", item.nodeid)
+            screenshot_path = os.path.join("screenshots", f"{safe_name}.png")
+
             driver.save_screenshot(screenshot_path)
+        except Exception:
+            # Never let screenshot capture break the test run / CI
+            pass
