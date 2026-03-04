@@ -32,6 +32,14 @@ python-selenium-automation-framework/
 
 ## How to Run
 
+## Environment Configuration
+
+Create a `.env` file (see `.env.example`) to set environment variables locally:
+
+- `BASE_URL` (UI target)
+
+CI sets environment variables directly in the workflow.
+
 ### Run full test suite
 `make test`
 
