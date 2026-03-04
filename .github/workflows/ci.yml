@@ -5,12 +5,13 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *"   # daily at 09:00 UTC (adjust later if you want)
+    - cron: "0 9 * * *"
 
 jobs:
   fast-checks:
     name: Fast checks (API + smoke)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,26 +30,27 @@ jobs:
         run: |
           python -m pytest -m api -q
 
-      - name: Run smoke suite
+      - name: Run smoke suite (UI + API) with HTML report
         env:
           BASE_URL: https://example.com
         run: |
- 	 mkdir -p reports screenshots
- 	 python -m pytest -m smoke -q --html=reports/smoke_report.html --self-contained-html
+          mkdir -p reports screenshots
+          python -m pytest -m smoke -q --html=reports/smoke_report.html --self-contained-html
 
-- name: Upload test artifacts (smoke)
-  if: always()
-  uses: actions/upload-artifact@v4
-  with:
-    name: smoke-artifacts
-    path: |
-      reports/
-      screenshots/
+      - name: Upload test artifacts (smoke)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: |
+            reports/
+            screenshots/
 
   ui-regression:
     name: UI regression (scheduled/manual)
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -63,18 +65,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run UI regression tests (with retries)
+      - name: Run UI regression tests (with retries) + HTML report
         env:
           BASE_URL: https://example.com
         run: |
- 	 mkdir -p reports screenshots
- 	 python -m pytest -m ui -q --reruns 2 --reruns-delay 1 --html=reports/ui_report.html --self-contained-html
+          mkdir -p reports screenshots
+          python -m pytest -m ui -q --reruns 2 --reruns-delay 1 --html=reports/ui_report.html --self-contained-html
 
-- name: Upload test artifacts (ui)
-  if: always()
-  uses: actions/upload-artifact@v4
-  with:
-    name: ui-artifacts
-    path: |
-      reports/
-      screenshots/
+      - name: Upload test artifacts (ui)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-artifacts
+          path: |
+            reports/
+            screenshots/
