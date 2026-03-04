@@ -33,8 +33,8 @@ jobs:
         env:
           BASE_URL: https://example.com
         run: |
-            mkdir -p reports screenshots
-            python -m pytest -m smoke -q --html=reports/smoke_report.html --self-contained-html
+ 	 mkdir -p reports screenshots
+ 	 python -m pytest -m smoke -q --html=reports/smoke_report.html --self-contained-html
 
 - name: Upload test artifacts (smoke)
   if: always()
