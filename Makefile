@@ -12,3 +12,12 @@ report:
 
 smoke-report:
 	python -m pytest -m smoke --html=reports/smoke_report.html --self-contained-html
+
+api:
+	python -m pytest -m api -q
+
+ui:
+	python -m pytest -m ui -q
+
+parallel:
+	python -m pytest -n 4
