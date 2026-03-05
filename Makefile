@@ -17,7 +17,7 @@ api:
 	python -m pytest -m api -q
 
 ui:
-	python -m pytest -m ui -q
+	python -m pytest -m ui -s -q
 
 parallel:
 	python -m pytest -n 4
