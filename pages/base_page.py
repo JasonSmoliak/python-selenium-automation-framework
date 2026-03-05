@@ -1,3 +1,4 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from utils.logger import get_logger
@@ -20,8 +21,11 @@ class BasePage:
         )
 
     def click(self, locator):
-        element = self.find(locator)
-        element.click()
+    	logger.info(f"Clicking element: {locator}")
+    	element = WebDriverWait(self.driver, 10).until(
+        EC.element_to_be_clickable(locator)
+    	)
+    	element.click()
 
     def click(self, locator):
     	logger.info(f"Clicking element: {locator}")
@@ -29,8 +33,11 @@ class BasePage:
     	element.click()
 
     def get_text(self, locator):
-        element = self.find(locator)
-        return element.text
+    	logger.info(f"Getting text from element: {locator}")
+    	element = WebDriverWait(self.driver, 10).until(
+        EC.visibility_of_element_located(locator)
+    	)
+    	return element.text
 
     def get_text(self, locator):
     	logger.info(f"Getting text from element: {locator}")
