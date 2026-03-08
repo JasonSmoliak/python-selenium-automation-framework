@@ -1,6 +1,6 @@
 # Python Selenium Automation Framework
 
-[![CI](https://github.com/JasonSmoliak/python-selenium-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/JasonSmoliak/python-selenium-automation-framework/actions/workflows/ci.yml
+![CI](https://github.com/JasonSmoliak/python-selenium-automation-framework/actions/workflows/ci.yml/badge.svg)
 
 A Python-based automation framework using Selenium and pytest that demonstrates:
 
