@@ -57,8 +57,6 @@ CI sets environment variables directly in the workflow.
 
 ## Running Tests
 
-Run all tests:
-
 ### Run full test suite
 `make test`
 
