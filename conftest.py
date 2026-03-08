@@ -30,6 +30,7 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
+    # Only capture artifacts when the test body fails
     if report.when == "call" and report.failed:
         driver = item.funcargs.get("driver")
         if not driver:
@@ -38,11 +39,19 @@ def pytest_runtest_makereport(item, call):
         try:
             os.makedirs("screenshots", exist_ok=True)
 
-            # Use nodeid (more unique) and sanitize for filesystem safety
+            # sanitize test name for filesystem
             safe_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", item.nodeid)
-            screenshot_path = os.path.join("screenshots", f"{safe_name}.png")
 
+            screenshot_path = os.path.join("screenshots", f"{safe_name}.png")
+            html_path = os.path.join("screenshots", f"{safe_name}.html")
+
+            # save screenshot
             driver.save_screenshot(screenshot_path)
+
+            # save page HTML
+            with open(html_path, "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+
         except Exception:
-            # Never let screenshot capture break the test run / CI
+            # never let artifact capture break CI
             pass

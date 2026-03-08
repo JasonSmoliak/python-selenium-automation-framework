@@ -41,5 +41,7 @@ class BasePage:
 
     def get_text(self, locator):
     	logger.info(f"Getting text from element: {locator}")
-    	element = self.driver.find_element(*locator)
+    	element = WebDriverWait(self.driver, 10).until(
+        EC.visibility_of_element_located(locator)
+    	)
     	return element.text

@@ -59,20 +59,6 @@ CI sets environment variables directly in the workflow.
 
 Run all tests:
 
-make test
-
-Run UI tests:
-
-make ui
-
-Run API tests:
-
-make api
-
-Run smoke tests:
-
-pytest -m smoke
-
 ### Run full test suite
 `make test`
 
