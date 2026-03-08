@@ -1,6 +1,12 @@
 # Python Selenium Automation Framework
 
-A lightweight Selenium automation framework built using Python and pytest.
+A Python-based automation framework using Selenium and pytest that demonstrates:
+
+• Page Object Model architecture
+• UI and API test separation
+• CI pipelines using GitHub Actions
+• Screenshot and HTML artifact capture on failures
+• Structured logging and explicit waits for stability
 
 ## Tech Stack
 
@@ -9,6 +15,15 @@ A lightweight Selenium automation framework built using Python and pytest.
 - pytest
 - webdriver-manager
 - Headless Chrome support
+
+## Key Capabilities
+
+• Page Object Model (POM) architecture for maintainable UI tests  
+• Pytest markers for running targeted suites (UI, API, smoke)  
+• GitHub Actions CI pipeline running automated checks on every push  
+• Automatic screenshot and HTML capture on test failures  
+• Explicit waits and retry logic to reduce flaky UI tests  
+• Structured logging for debugging test execution
 
 ## Project Structure
 
@@ -39,6 +54,24 @@ Create a `.env` file (see `.env.example`) to set environment variables locally:
 - `BASE_URL` (UI target)
 
 CI sets environment variables directly in the workflow.
+
+## Running Tests
+
+Run all tests:
+
+make test
+
+Run UI tests:
+
+make ui
+
+Run API tests:
+
+make api
+
+Run smoke tests:
+
+pytest -m smoke
 
 ### Run full test suite
 `make test`
