@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from utils.logger import get_logger
+from config.settings import BASE_URL
+
 
 logger = get_logger(__name__)
 
@@ -45,3 +47,7 @@ class BasePage:
         EC.visibility_of_element_located(locator)
     	)
     	return element.text
+
+    def load(self):
+    	self.open(BASE_URL)
+    	return self
