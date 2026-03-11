@@ -2,14 +2,11 @@ import pytest
 from api_client import get
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
-
+from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 
 @pytest.mark.api
 @pytest.mark.smoke
-@pytest.mark.parametrize("endpoint, expected_status", [
-    ("/posts/1", 200),
-    ("/posts/2", 200),
-])
+@pytest.mark.parametrize("endpoint, expected_status", API_SUCCESS_CASES)
 def test_example_api_success(endpoint, expected_status):
     response = get(endpoint)
 
@@ -20,9 +17,7 @@ def test_example_api_success(endpoint, expected_status):
 
 @pytest.mark.api
 @pytest.mark.regression
-@pytest.mark.parametrize("endpoint, expected_status", [
-    ("/posts/999999", 404),
-])
+@pytest.mark.parametrize("endpoint, expected_status", API_NEGATIVE_CASES)
 def test_example_api_negative(endpoint, expected_status):
     response = get(endpoint)
 
