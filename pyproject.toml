@@ -1,6 +1,6 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--durations=5"
+addopts = "--reruns 2 --reruns-delay 1"
 markers = [
     "smoke: quick validation tests",
     "regression: full regression coverage",

@@ -4,7 +4,6 @@ from test_data.ui_data import EXAMPLE_PAGE_DATA
 
 @pytest.mark.ui
 @pytest.mark.smoke
-@pytest.mark.flaky(reruns=2, reruns_delay=1)
 @pytest.mark.parametrize(
     "expected_heading, expected_url_fragment",
     EXAMPLE_PAGE_DATA,
