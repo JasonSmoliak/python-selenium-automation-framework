@@ -3,7 +3,7 @@ from api_client import get
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
-from utils.api_helpers import assert_status
+from utils.api_helpers import assert_status, is_json
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -12,6 +12,8 @@ def test_example_api_success(endpoint, expected_status):
     response = get(endpoint)
 
     assert_status(response, expected_status)
+    assert is_json(response)
+    
     data = response.json()
 
     validate(instance=data, schema=POST_SCHEMA)
