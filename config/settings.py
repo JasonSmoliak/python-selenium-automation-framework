@@ -1,7 +1,6 @@
 import os
-from dotenv import load_dotenv
+from config.environments import ENVIRONMENTS
 
-# Load .env if present (does NOT override existing environment variables by default)
-load_dotenv()
+ENV = os.getenv("ENV", "dev")
 
-BASE_URL = os.getenv("BASE_URL", "https://example.com")
+BASE_URL = ENVIRONMENTS.get(ENV)
