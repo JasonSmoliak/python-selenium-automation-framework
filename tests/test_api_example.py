@@ -25,3 +25,17 @@ def test_example_api_negative(endpoint, expected_status):
     response = get(endpoint)
 
     assert_status(response, expected_status)
+
+@pytest.mark.api
+def test_api_response_contains_expected_fields():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert "userId" in data
+    assert "id" in data
+    assert "title" in data
+    assert data["id"] == 1
