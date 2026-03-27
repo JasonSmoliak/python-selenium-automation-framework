@@ -6,6 +6,7 @@ from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 from utils.api_helpers import assert_status, is_json
 from utils.response_validators import find_missing_titles
 from utils.response_validators import find_missing_keys
+from utils.response_validators import get_nested_value
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -61,3 +62,17 @@ def test_all_posts_have_required_fields():
     missing = find_missing_keys(data, required_keys)
 
     assert len(missing) == 0, f"Posts missing required fields: {missing}"
+
+@pytest.mark.api
+def test_post_has_userid_field():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    user_id = get_nested_value(data, ["userId"])
+
+    assert user_id is not None
+    assert isinstance(user_id, int)

@@ -22,3 +22,15 @@ def find_missing_keys(data, required_keys):
                 break
 
     return missing_items
+
+def get_nested_value(data, keys):
+    current = data
+
+    for key in keys:
+        if not isinstance(current, dict):
+            return None
+        if key not in current:
+            return None
+        current = current[key]
+
+    return current
