@@ -5,6 +5,7 @@ from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 from utils.api_helpers import assert_status, is_json
 from utils.response_validators import find_missing_titles
+from utils.response_validators import find_missing_keys
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -42,3 +43,21 @@ def test_all_posts_have_titles():
     missing = find_missing_titles(data)
 
     assert len(missing) == 0, f"Posts missing titles: {missing}"
+
+@pytest.mark.api
+def test_all_posts_have_required_fields():
+    response = get("/posts")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+    required_keys = ["id", "title", "userId"]
+
+    missing = find_missing_keys(data, required_keys)
+
+    assert len(missing) == 0, f"Posts missing required fields: {missing}"
