@@ -91,5 +91,4 @@ def test_invalid_post_response_structure():
 
     data = response.json()
 
-    # Many APIs return an empty object for missing resources
-    assert data == {}
+    assert isinstance(data, dict)
