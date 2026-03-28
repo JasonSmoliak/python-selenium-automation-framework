@@ -76,3 +76,20 @@ def test_post_has_userid_field():
 
     assert user_id is not None
     assert isinstance(user_id, int)
+
+@pytest.mark.api
+def test_invalid_post_returns_404():
+    response = get("/posts/999999")
+
+    assert response.status_code == 404
+
+@pytest.mark.api
+def test_invalid_post_response_structure():
+    response = get("/posts/999999")
+
+    assert response.status_code == 404
+
+    data = response.json()
+
+    # Many APIs return an empty object for missing resources
+    assert data == {}

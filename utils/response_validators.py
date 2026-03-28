@@ -34,3 +34,6 @@ def get_nested_value(data, keys):
         current = current[key]
 
     return current
+
+def has_nested_value(data, keys):
+    return get_nested_value(data, keys) is not None
