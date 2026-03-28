@@ -37,3 +37,14 @@ def get_nested_value(data, keys):
 
 def has_nested_value(data, keys):
     return get_nested_value(data, keys) is not None
+
+def is_valid_error_response(response):
+    if response.status_code != 404:
+        return False
+
+    try:
+        data = response.json()
+    except Exception:
+        return False
+
+    return isinstance(data, dict)

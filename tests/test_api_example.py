@@ -7,6 +7,7 @@ from utils.api_helpers import assert_status, is_json
 from utils.response_validators import find_missing_titles
 from utils.response_validators import find_missing_keys
 from utils.response_validators import get_nested_value
+from utils.response_validators import is_valid_error_response
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -92,3 +93,9 @@ def test_invalid_post_response_structure():
     data = response.json()
 
     assert isinstance(data, dict)
+
+@pytest.mark.api
+def test_invalid_post_response():
+    response = get("/posts/999999")
+
+    assert is_valid_error_response(response)
