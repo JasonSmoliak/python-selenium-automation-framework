@@ -123,3 +123,6 @@ def test_all_posts_have_valid_structure_and_types():
         assert isinstance(item["title"], str), f"title is not str: {item}"
         assert isinstance(item["body"], str), f"body is not str: {item}"
         assert item["id"] > 0, f"id must be positive: {item}"
+
+    ids = [item["id"] for item in data]
+    assert len(ids) == len(set(ids)), "Duplicate IDs found in response"
