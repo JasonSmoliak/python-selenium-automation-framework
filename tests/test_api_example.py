@@ -99,3 +99,27 @@ def test_invalid_post_response():
     response = get("/posts/999999")
 
     assert is_valid_error_response(response)
+
+@pytest.mark.api
+def test_all_posts_have_valid_structure_and_types():
+    response = get("/posts")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+    required_keys = ["userId", "id", "title", "body"]
+    missing = find_missing_keys(data, required_keys)
+
+    assert len(missing) == 0, f"Posts missing required fields: {missing}"
+
+    for item in data:
+        assert isinstance(item["userId"], int), f"userId is not int: {item}"
+        assert isinstance(item["id"], int), f"id is not int: {item}"
+        assert isinstance(item["title"], str), f"title is not str: {item}"
+        assert isinstance(item["body"], str), f"body is not str: {item}"
+        assert item["id"] > 0, f"id must be positive: {item}"
