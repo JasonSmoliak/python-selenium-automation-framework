@@ -48,3 +48,9 @@ def is_valid_error_response(response):
         return False
 
     return isinstance(data, dict)
+
+def matches_expected_fields(actual, expected):
+    for key, value in expected.items():
+        if actual.get(key) != value:
+            return False
+    return True

@@ -8,6 +8,7 @@ from utils.response_validators import find_missing_titles
 from utils.response_validators import find_missing_keys
 from utils.response_validators import get_nested_value
 from utils.response_validators import is_valid_error_response
+from utils.response_validators import matches_expected_fields
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -141,5 +142,4 @@ def test_post_1_expected_values():
         "userId": 1
     }
 
-    assert data["id"] == expected["id"]
-    assert data["userId"] == expected["userId"]
+    assert matches_expected_fields(data, expected)
