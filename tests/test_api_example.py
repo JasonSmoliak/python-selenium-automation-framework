@@ -126,3 +126,20 @@ def test_all_posts_have_valid_structure_and_types():
 
     ids = [item["id"] for item in data]
     assert len(ids) == len(set(ids)), "Duplicate IDs found in response"
+
+@pytest.mark.api
+def test_post_1_expected_values():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    expected = {
+        "id": 1,
+        "userId": 1
+    }
+
+    assert data["id"] == expected["id"]
+    assert data["userId"] == expected["userId"]
