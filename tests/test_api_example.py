@@ -158,3 +158,20 @@ def test_multiple_posts_have_valid_ids(post_id):
 
     assert data["id"] == post_id
     assert isinstance(data["userId"], int)
+
+@pytest.mark.api
+@pytest.mark.parametrize("post_id, expected_user_id", [
+    (1, 1),
+    (2, 1),
+    (3, 1),
+])
+def test_posts_expected_user_ids(post_id, expected_user_id):
+    response = get(f"/posts/{post_id}")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert data["id"] == post_id
+    assert data["userId"] == expected_user_id
