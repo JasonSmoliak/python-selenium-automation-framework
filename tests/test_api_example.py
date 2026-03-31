@@ -175,3 +175,19 @@ def test_posts_expected_user_ids(post_id, expected_user_id):
 
     assert data["id"] == post_id
     assert data["userId"] == expected_user_id
+
+@pytest.mark.api
+@pytest.mark.parametrize("post_id, expected", [
+    (1, {"id": 1, "userId": 1}),
+    (2, {"id": 2, "userId": 1}),
+    (3, {"id": 3, "userId": 1}),
+])
+def test_posts_match_expected_fields(post_id, expected):
+    response = get(f"/posts/{post_id}")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert matches_expected_fields(data, expected)
