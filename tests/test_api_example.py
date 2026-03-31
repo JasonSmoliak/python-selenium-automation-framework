@@ -143,3 +143,18 @@ def test_post_1_expected_values():
     }
 
     assert matches_expected_fields(data, expected)
+
+import pytest
+
+@pytest.mark.api
+@pytest.mark.parametrize("post_id", [1, 2, 3])
+def test_multiple_posts_have_valid_ids(post_id):
+    response = get(f"/posts/{post_id}")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert data["id"] == post_id
+    assert isinstance(data["userId"], int)
