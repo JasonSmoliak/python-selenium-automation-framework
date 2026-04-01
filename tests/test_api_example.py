@@ -9,6 +9,11 @@ from utils.response_validators import find_missing_keys
 from utils.response_validators import get_nested_value
 from utils.response_validators import is_valid_error_response
 from utils.response_validators import matches_expected_fields
+import json
+
+def load_test_data(file_path):
+    with open(file_path) as f:
+        return json.load(f)
 
 @pytest.mark.api
 @pytest.mark.smoke
@@ -191,3 +196,20 @@ def test_posts_match_expected_fields(post_id, expected):
     data = response.json()
 
     assert matches_expected_fields(data, expected)
+
+@pytest.mark.api
+def test_posts_from_json_data():
+    test_data = load_test_data("test_data/posts.json")
+
+    for item in test_data:
+        post_id = item["post_id"]
+        expected = item["expected"]
+
+        response = get(f"/posts/{post_id}")
+
+        assert_status(response, 200)
+        assert is_json(response)
+
+        data = response.json()
+
+        assert matches_expected_fields(data, expected)
