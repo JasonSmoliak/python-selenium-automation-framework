@@ -59,6 +59,14 @@ def deep_compare_dicts(actual, expected):
     for key in expected:
         if key not in actual:
             return False
-        if actual[key] != expected[key]:
-            return False
+
+        if isinstance(expected[key], dict):
+            if not isinstance(actual[key], dict):
+                return False
+            if not deep_compare_dicts(actual[key], expected[key]):
+                return False
+        else:
+            if actual[key] != expected[key]:
+                return False
+
     return True
