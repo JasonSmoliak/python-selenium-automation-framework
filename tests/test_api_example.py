@@ -10,6 +10,7 @@ from utils.response_validators import get_nested_value
 from utils.response_validators import is_valid_error_response
 from utils.response_validators import matches_expected_fields
 import json
+from utils.response_validators import deep_compare_dicts
 
 def load_post_test_cases():
     data = load_test_data("test_data/posts.json")
@@ -230,3 +231,21 @@ def test_posts_from_json_parametrized(post_id, expected):
     data = response.json()
 
     assert matches_expected_fields(data, expected)
+
+@pytest.mark.api
+def test_post_1_full_validation():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    expected = {
+        "id": 1,
+        "userId": 1,
+        "title": data["title"],
+        "body": data["body"]
+    }
+
+    assert deep_compare_dicts(data, expected)

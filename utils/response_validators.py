@@ -54,3 +54,11 @@ def matches_expected_fields(actual, expected):
         if actual.get(key) != value:
             return False
     return True
+
+def deep_compare_dicts(actual, expected):
+    for key in expected:
+        if key not in actual:
+            return False
+        if actual[key] != expected[key]:
+            return False
+    return True
