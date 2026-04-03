@@ -79,3 +79,11 @@ def get_missing_keys(item, required_keys):
             missing.append(key)
 
     return missing
+
+def validate_required_keys(item, required_keys):
+    missing = get_missing_keys(item, required_keys)
+
+    if missing:
+        return False, missing
+
+    return True, []

@@ -11,6 +11,7 @@ from utils.response_validators import is_valid_error_response
 from utils.response_validators import matches_expected_fields
 import json
 from utils.response_validators import deep_compare_dicts
+from utils.response_validators import validate_required_keys
 
 def load_post_test_cases():
     data = load_test_data("test_data/posts.json")
@@ -283,3 +284,14 @@ def test_empty_response_handling():
 
     assert isinstance(data, list)
     assert len(data) == 0
+
+@pytest.mark.api
+def test_validate_required_keys_helper():
+    item = {"id": 1}
+
+    required = ["id", "userId"]
+
+    is_valid, missing = validate_required_keys(item, required)
+
+    assert not is_valid
+    assert missing == ["userId"]
