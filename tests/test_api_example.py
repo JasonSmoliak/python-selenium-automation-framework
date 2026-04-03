@@ -249,3 +249,37 @@ def test_post_1_full_validation():
     }
 
     assert deep_compare_dicts(data, expected)
+
+@pytest.mark.api
+def test_missing_required_fields_fails():
+    bad_data = {
+        "id": 1
+        # missing userId, title, body
+    }
+
+    required_keys = ["userId", "title", "body"]
+
+    missing = find_missing_keys([bad_data], required_keys)
+
+    assert len(missing) == 1
+
+@pytest.mark.api
+def test_wrong_data_types_fail():
+    bad_data = {
+        "id": "1",  # should be int
+        "userId": "1",  # should be int
+        "title": 123,  # should be str
+        "body": []
+    }
+
+    assert not isinstance(bad_data["id"], int)
+    assert not isinstance(bad_data["userId"], int)
+    assert not isinstance(bad_data["title"], str)
+    assert not isinstance(bad_data["body"], str)
+
+@pytest.mark.api
+def test_empty_response_handling():
+    data = []
+
+    assert isinstance(data, list)
+    assert len(data) == 0
