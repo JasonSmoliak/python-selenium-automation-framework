@@ -70,3 +70,12 @@ def deep_compare_dicts(actual, expected):
                 return False
 
     return True
+
+def get_missing_keys(item, required_keys):
+    missing = []
+
+    for key in required_keys:
+        if key not in item:
+            missing.append(key)
+
+    return missing
