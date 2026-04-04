@@ -1,17 +1,22 @@
 import pytest
+import json
+
 from api_client import get
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 from utils.api_helpers import assert_status, is_json
-from utils.response_validators import find_missing_titles
-from utils.response_validators import find_missing_keys
-from utils.response_validators import get_nested_value
-from utils.response_validators import is_valid_error_response
-from utils.response_validators import matches_expected_fields
-import json
-from utils.response_validators import deep_compare_dicts
-from utils.response_validators import validate_required_keys
+from utils.response_validators import (
+    deep_compare_dicts,
+    find_missing_keys,
+    find_missing_titles,
+    get_missing_keys,
+    get_nested_value,
+    has_nested_value,
+    is_valid_error_response,
+    matches_expected_fields,
+    validate_required_keys,
+)
 
 def load_post_test_cases():
     data = load_test_data("test_data/posts.json")
