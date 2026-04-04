@@ -1,22 +1,35 @@
-# Python Selenium Automation Framework
+# API Automation Framework (Python + Pytest)
 
 ![CI](https://github.com/JasonSmoliak/python-selenium-automation-framework/actions/workflows/ci.yml/badge.svg)
 
-A Python-based automation framework using Selenium and pytest that demonstrates:
+## Overview
+This project is a Python-based API automation framework built using pytest and requests.
 
-• Page Object Model architecture
-• UI and API test separation
-• CI pipelines using GitHub Actions
-• Screenshot and HTML artifact capture on failures
-• Structured logging and explicit waits for stability
+It validates REST API responses using reusable helper functions and scalable test patterns.
+
+---
+
+## Key Features
+
+- ✅ Status code validation
+- ✅ JSON response validation
+- ✅ Required field validation
+- ✅ Missing key detection (with detailed error reporting)
+- ✅ Partial and full object comparison
+- ✅ Recursive validation for nested JSON
+- ✅ Parameterized testing
+- ✅ JSON-driven test data
+- ✅ Edge case and negative testing
+- ✅ CI integration with GitHub Actions
+
+---
 
 ## Tech Stack
 
-- Python 3.12
-- Selenium WebDriver
-- pytest
-- webdriver-manager
-- Headless Chrome support
+• Python
+• Pytest
+• Requests
+• GitHub Actions (CI)
 
 ## Key Capabilities
 
@@ -74,6 +87,21 @@ CI sets environment variables directly in the workflow.
 ### Run API tests only
 `make api`
 
+### Run with verbose output
+./venv/bin/python -m pytest -m api -vv
+
+## Example Test Patterns
+
+### Parameterized Test
+@pytest.mark.parametrize("post_id", [1, 2, 3])
+
+### JSON-driven Testing
+test_data = load_test_data("test_data/posts.json")
+
+### Validation Example
+is_valid, missing = validate_required_keys(item, required_keys)
+assert is_valid, f"Missing keys: {missing}"
+
 ### Generate HTML report
 `make report`
 Then open:
@@ -116,3 +144,17 @@ Initial framework scaffold complete.
 Added Page Object Model scaffold (BasePage + ExamplePage).
 Currently expanding framework structure and preparing for API test layer.
 
+What This Demonstrates
+
+This project showcases:
+• Building a scalable API test framework
+• Designing reusable validation logic
+• Handling real-world API edge cases
+• Structuring tests for maintainability
+• Debugging and maintaining CI pipelines
+
+⸻
+
+Author
+
+Jason Smoliak
