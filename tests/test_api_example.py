@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from api_client import get
+from api_client import get, post
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
@@ -340,3 +340,22 @@ def test_invalid_auth_header():
     response = get("/posts/1", headers=headers)
 
     assert_status(response, 200)  # placeholder API behavior
+
+@pytest.mark.api
+def test_create_post():
+    payload = {
+        "title": "test title",
+        "body": "test body",
+        "userId": 1
+    }
+
+    response = post("/posts", json=payload)
+
+    assert_status(response, 201)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert data["title"] == payload["title"]
+    assert data["body"] == payload["body"]
+    assert data["userId"] == payload["userId"]
