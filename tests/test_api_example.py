@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from api_client import get, post
+from api_client import get, post, delete
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
@@ -359,3 +359,9 @@ def test_create_post():
     assert data["title"] == payload["title"]
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
+
+@pytest.mark.api
+def test_delete_post():
+    response = delete("/posts/1")
+
+    assert_status(response, 200)
