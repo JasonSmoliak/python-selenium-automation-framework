@@ -6,3 +6,9 @@ def assert_status(response, expected_status):
 def is_json(response):
     content_type = response.headers.get("Content-Type", "")
     return "application/json" in content_type
+
+def get_auth_headers(token):
+    return {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }

@@ -6,6 +6,7 @@ from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 from utils.api_helpers import assert_status, is_json
+from utils.api_helpers import get_auth_headers
 from utils.response_validators import (
     deep_compare_dicts,
     find_missing_keys,
@@ -315,3 +316,27 @@ def test_get_with_headers():
     data = response.json()
 
     assert data["id"] == 1
+ 
+@pytest.mark.api
+def test_auth_headers_structure():
+    token = "test_token"
+
+    headers = get_auth_headers(token)
+
+    assert "Authorization" in headers
+    assert headers["Authorization"] == "Bearer test_token"
+    assert headers["Content-Type"] == "application/json"
+
+@pytest.mark.api
+def test_missing_auth_header():
+    response = get("/posts/1", headers={})
+
+    assert_status(response, 200)  # JSONPlaceholder allows it
+
+@pytest.mark.api
+def test_invalid_auth_header():
+    headers = get_auth_headers("invalid_token")
+
+    response = get("/posts/1", headers=headers)
+
+    assert_status(response, 200)  # placeholder API behavior
