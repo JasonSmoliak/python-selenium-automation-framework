@@ -300,3 +300,18 @@ def test_validate_required_keys_helper():
 
     assert not is_valid
     assert missing == ["userId"]
+
+@pytest.mark.api
+def test_get_with_headers():
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = get("/posts/1", headers=headers)
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    assert data["id"] == 1
