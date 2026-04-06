@@ -7,6 +7,7 @@ from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
 from utils.api_helpers import assert_status, is_json
 from utils.api_helpers import get_auth_headers
+from utils.api_helpers import log_response
 from utils.response_validators import (
     deep_compare_dicts,
     find_missing_keys,
@@ -350,7 +351,7 @@ def test_create_post():
     }
 
     response = post("/posts", json=payload)
-
+    
     assert_status(response, 201)
     assert is_json(response)
 
@@ -359,6 +360,7 @@ def test_create_post():
     assert data["title"] == payload["title"]
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
+
 
 @pytest.mark.api
 def test_delete_post():
@@ -376,6 +378,7 @@ def test_create_update_delete_workflow():
     }
 
     create_response = post("/posts", json=payload)
+    log_response(create_response)
     assert_status(create_response, 201)
 
     created = create_response.json()
@@ -394,6 +397,7 @@ def test_create_update_delete_workflow():
     }
 
     update_response = put("/posts/1", json=updated_payload)
+    log_response(update_response)
     assert_status(update_response, 200)
 
     updated = update_response.json()
@@ -416,6 +420,7 @@ def test_create_update_delete_workflow():
     
     # Step 3: Delete a known existing resource
     delete_response = delete("/posts/1")
+    log_response(delete_response)    
     assert delete_response.status_code in (200, 204)
     assert delete_response.elapsed.total_seconds() < 2, "Delete request too slow"
 

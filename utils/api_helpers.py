@@ -12,3 +12,8 @@ def get_auth_headers(token):
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
+
+def log_response(response):
+    print(f"\nStatus Code: {response.status_code}")
+    print(f"Response Time: {response.elapsed.total_seconds():.2f}s")
+    print(f"URL: {response.url}")
