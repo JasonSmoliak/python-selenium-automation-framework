@@ -383,6 +383,8 @@ def test_create_update_delete_workflow():
     assert created["body"] == payload["body"]
     assert created["userId"] == payload["userId"]
 
+    assert create_response.elapsed.total_seconds() < 2, "Create request too slow"
+
     # Step 2: Update a known existing resource
     updated_payload = {
         "id": 1,
@@ -409,7 +411,21 @@ def test_create_update_delete_workflow():
 
     assert is_valid, f"Missing keys: {missing}"
 
+    assert update_response.elapsed.total_seconds() < 2, "Update request too slow"
+
     
     # Step 3: Delete a known existing resource
     delete_response = delete("/posts/1")
     assert delete_response.status_code in (200, 204)
+    assert delete_response.elapsed.total_seconds() < 2, "Delete request too slow"
+
+
+@pytest.mark.api
+def test_posts_response_time_under_two_seconds():
+    response = get("/posts")
+
+    assert_status(response, 200)
+
+    elapsed = response.elapsed.total_seconds()
+
+    assert elapsed < 2, f"Response took too long: {elapsed:.2f}s"
