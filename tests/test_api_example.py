@@ -395,10 +395,21 @@ def test_create_update_delete_workflow():
     assert_status(update_response, 200)
 
     updated = update_response.json()
-    assert updated["title"] == "updated title"
-    assert updated["body"] == "updated body"
-    assert updated["userId"] == 1
 
+    expected_update = {
+    	"title": "updated title",
+    	"body": "updated body",
+    	"userId": 1
+    }
+
+    assert matches_expected_fields(updated, expected_update)
+    required_keys = ["title", "body", "userId"]
+
+    is_valid, missing = validate_required_keys(updated, required_keys)
+
+    assert is_valid, f"Missing keys: {missing}"
+
+    
     # Step 3: Delete a known existing resource
     delete_response = delete("/posts/1")
     assert delete_response.status_code in (200, 204)
