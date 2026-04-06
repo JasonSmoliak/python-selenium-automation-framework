@@ -1,7 +1,7 @@
 import pytest
 import json
 
-from api_client import get, post, delete
+from api_client import get, post, delete, put
 from jsonschema import validate
 from schemas.post_schema import POST_SCHEMA
 from test_data.api_data import API_SUCCESS_CASES, API_NEGATIVE_CASES
@@ -365,3 +365,40 @@ def test_delete_post():
     response = delete("/posts/1")
 
     assert_status(response, 200)
+
+@pytest.mark.api
+def test_create_update_delete_workflow():
+    # Step 1: Create
+    payload = {
+        "title": "original title",
+        "body": "original body",
+        "userId": 1
+    }
+
+    create_response = post("/posts", json=payload)
+    assert_status(create_response, 201)
+
+    created = create_response.json()
+    assert created["title"] == payload["title"]
+    assert created["body"] == payload["body"]
+    assert created["userId"] == payload["userId"]
+
+    # Step 2: Update a known existing resource
+    updated_payload = {
+        "id": 1,
+        "title": "updated title",
+        "body": "updated body",
+        "userId": 1
+    }
+
+    update_response = put("/posts/1", json=updated_payload)
+    assert_status(update_response, 200)
+
+    updated = update_response.json()
+    assert updated["title"] == "updated title"
+    assert updated["body"] == "updated body"
+    assert updated["userId"] == 1
+
+    # Step 3: Delete a known existing resource
+    delete_response = delete("/posts/1")
+    assert delete_response.status_code in (200, 204)

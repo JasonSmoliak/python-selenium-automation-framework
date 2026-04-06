@@ -15,3 +15,7 @@ def post(endpoint, json=None, headers=None):
 def delete(endpoint, headers=None):
     url = f"{BASE_URL}{endpoint}"
     return requests.delete(url, headers=headers)
+
+def put(endpoint, json=None, headers=None):
+    url = f"{BASE_URL}{endpoint}"
+    return requests.put(url, json=json, headers=headers)
