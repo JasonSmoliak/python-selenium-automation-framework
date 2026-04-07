@@ -29,6 +29,23 @@ def load_test_data(file_path):
         return json.load(f)
 
 @pytest.fixture
+def created_post_response(sample_post_payload):
+    response = post("/posts", json=sample_post_payload)
+
+    assert_status(response, 201)
+    assert is_json(response)
+
+    created = response.json()
+
+    yield created
+
+    # Teardown
+    post_id = created.get("id")
+    if post_id:
+        delete(f"/posts/{post_id}")
+
+
+@pytest.fixture
 def sample_post_payload():
     return {
         "title": "fixture title",
@@ -435,3 +452,10 @@ def test_posts_response_time_under_two_seconds():
     elapsed = response.elapsed.total_seconds()
 
     assert elapsed < 2, f"Response took too long: {elapsed:.2f}s"
+
+@pytest.mark.api
+def test_created_post_has_expected_fields(created_post_response):
+    assert "id" in created_post_response
+    assert "title" in created_post_response
+    assert "body" in created_post_response
+    assert "userId" in created_post_response
