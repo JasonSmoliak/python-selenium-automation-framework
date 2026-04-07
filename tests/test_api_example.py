@@ -20,6 +20,14 @@ from utils.response_validators import (
     validate_required_keys,
 )
 
+@pytest.fixture(autouse=True)
+def log_test_start_and_end():
+    print("\n--- Starting test ---")
+
+    yield
+
+    print("--- Test finished ---\n")
+
 def load_post_test_cases():
     data = load_test_data("test_data/posts.json")
     return [(item["post_id"], item["expected"]) for item in data]
