@@ -28,6 +28,14 @@ def load_test_data(file_path):
     with open(file_path) as f:
         return json.load(f)
 
+@pytest.fixture
+def sample_post_payload():
+    return {
+        "title": "fixture title",
+        "body": "fixture body",
+        "userId": 1
+    }
+
 @pytest.mark.api
 @pytest.mark.smoke
 @pytest.mark.parametrize("endpoint, expected_status", API_SUCCESS_CASES)
@@ -343,24 +351,17 @@ def test_invalid_auth_header():
     assert_status(response, 200)  # placeholder API behavior
 
 @pytest.mark.api
-def test_create_post():
-    payload = {
-        "title": "test title",
-        "body": "test body",
-        "userId": 1
-    }
+def test_create_post(sample_post_payload):
+    response = post("/posts", json=sample_post_payload)
 
-    response = post("/posts", json=payload)
-    
     assert_status(response, 201)
     assert is_json(response)
 
     data = response.json()
 
-    assert data["title"] == payload["title"]
-    assert data["body"] == payload["body"]
-    assert data["userId"] == payload["userId"]
-
+    assert data["title"] == sample_post_payload["title"]
+    assert data["body"] == sample_post_payload["body"]
+    assert data["userId"] == sample_post_payload["userId"]
 
 @pytest.mark.api
 def test_delete_post():
