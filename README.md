@@ -153,6 +153,12 @@ This project showcases:
 • Structuring tests for maintainability
 • Debugging and maintaining CI pipelines
 
+## Example Output
+
+Status Code: 201
+Response Time: 0.20s
+37 passed, 6 deselected
+
 ⸻
 
 Author
