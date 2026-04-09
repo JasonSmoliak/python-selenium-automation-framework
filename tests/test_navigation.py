@@ -21,3 +21,14 @@ def test_navigation_to_more_info(driver):
 
     assert "iana" in driver.current_url.lower()
     assert more_info_page.heading_text() is not None
+
+@pytest.mark.ui
+def test_homepage_title(driver):
+    driver.get("https://example.com")
+    print(f"Current URL: {driver.current_url}")
+
+    title = driver.title
+    print(f"Page title: {title}")
+
+    assert title is not None, "Page title is None"
+    assert len(title) > 0, "Page title is empty"

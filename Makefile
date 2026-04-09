@@ -25,7 +25,7 @@ api:
 	$(PYTHON) -m pytest -m api -q
 
 ui:
-	$(PYTHON) -m pytest -m ui -q
+	$(PYTHON) -m pytest -m ui -q -s
 
 parallel:
 	$(PYTHON) -m pytest -n 4
