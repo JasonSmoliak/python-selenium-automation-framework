@@ -467,3 +467,18 @@ def test_created_post_has_expected_fields(created_post_response):
     assert "title" in created_post_response
     assert "body" in created_post_response
     assert "userId" in created_post_response
+
+@pytest.mark.api
+@pytest.mark.flaky(reruns=2, reruns_delay=1)
+def test_post_has_userid_field():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    data = response.json()
+
+    user_id = get_nested_value(data, ["userId"])
+
+    assert user_id is not None
+    assert isinstance(user_id, int)
