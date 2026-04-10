@@ -28,7 +28,7 @@ def test_homepage_title_and_header(driver):
     page = ExamplePage(driver).load()
 
     title = page.get_title()
-    header_text = page.get_header_text()
+    header_text = page.heading_text
 
     print(f"Page title: {title}")
     print(f"Header text: {header_text}")
