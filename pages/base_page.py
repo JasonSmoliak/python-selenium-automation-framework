@@ -1,53 +1,31 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from utils.logger import get_logger
-from config.settings import BASE_URL
 
-
-logger = get_logger(__name__)
 
 class BasePage:
-    def __init__(self, driver, timeout: int = 10):
+    def __init__(self, driver, timeout=10):
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
 
-    def open(self, url: str):
-        logger.info(f"Opening URL: {url}")
+    def load(self, url):
         self.driver.get(url)
-        return self
 
-    def find(self, locator):
+    def wait_for_element(self, locator):
         return self.wait.until(
             EC.visibility_of_element_located(locator)
         )
 
     def click(self, locator):
-    	logger.info(f"Clicking element: {locator}")
-    	element = WebDriverWait(self.driver, 10).until(
-        EC.element_to_be_clickable(locator)
-    	)
-    	element.click()
-
-    def click(self, locator):
-    	logger.info(f"Clicking element: {locator}")
-    	element = self.driver.find_element(*locator)
-    	element.click()
+        element = self.wait.until(
+            EC.element_to_be_clickable(locator)
+        )
+        element.click()
 
     def get_text(self, locator):
-    	logger.info(f"Getting text from element: {locator}")
-    	element = WebDriverWait(self.driver, 10).until(
-        EC.visibility_of_element_located(locator)
-    	)
-    	return element.text
+        return self.wait_for_element(locator).text
 
-    def get_text(self, locator):
-    	logger.info(f"Getting text from element: {locator}")
-    	element = WebDriverWait(self.driver, 10).until(
-        EC.visibility_of_element_located(locator)
-    	)
-    	return element.text
+    def get_title(self):
+        return self.driver.title
 
-    def load(self):
-    	self.open(BASE_URL)
-    	return self
+    def get_current_url(self):
+        return self.driver.current_url
