@@ -1,11 +1,12 @@
 from selenium.webdriver.common.by import By
 
+from config.settings import UI_BASE_URL
 from pages.base_page import BasePage
 from pages.more_info_page import MoreInfoPage
 
 
 class ExamplePage(BasePage):
-    URL = "https://example.com"
+    URL = UI_BASE_URL
 
     HEADING = (By.TAG_NAME, "h1")
     MORE_INFO_LINK = (By.CSS_SELECTOR, "a")

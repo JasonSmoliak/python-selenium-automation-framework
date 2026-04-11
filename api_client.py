@@ -2,9 +2,10 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-BASE_URL = "https://jsonplaceholder.typicode.com"
+from config.settings import API_BASE_URL
 
-TIMEOUT = 5  # seconds
+TIMEOUT = 5
+
 
 def _build_session():
     retry_strategy = Retry(
@@ -27,20 +28,20 @@ SESSION = _build_session()
 
 
 def get(endpoint, headers=None):
-    url = f"{BASE_URL}{endpoint}"
+    url = f"{API_BASE_URL}{endpoint}"
     return SESSION.get(url, headers=headers, timeout=TIMEOUT)
 
 
 def post(endpoint, json=None, headers=None):
-    url = f"{BASE_URL}{endpoint}"
+    url = f"{API_BASE_URL}{endpoint}"
     return SESSION.post(url, json=json, headers=headers, timeout=TIMEOUT)
 
 
 def put(endpoint, json=None, headers=None):
-    url = f"{BASE_URL}{endpoint}"
+    url = f"{API_BASE_URL}{endpoint}"
     return SESSION.put(url, json=json, headers=headers, timeout=TIMEOUT)
 
 
 def delete(endpoint, headers=None):
-    url = f"{BASE_URL}{endpoint}"
+    url = f"{API_BASE_URL}{endpoint}"
     return SESSION.delete(url, headers=headers, timeout=TIMEOUT)

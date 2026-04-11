@@ -1,6 +1,21 @@
 import os
-from config.environments import ENVIRONMENTS
 
-ENV = os.getenv("ENV", "dev")
+ENV = os.getenv("TEST_ENV", "dev")
 
-BASE_URL = ENVIRONMENTS.get(ENV)
+ENVIRONMENTS = {
+    "dev": {
+        "API_BASE_URL": "https://jsonplaceholder.typicode.com",
+        "UI_BASE_URL": "https://example.com",
+    },
+    "staging": {
+        "API_BASE_URL": "https://jsonplaceholder.typicode.com",
+        "UI_BASE_URL": "https://example.com",
+    },
+    "prod": {
+        "API_BASE_URL": "https://jsonplaceholder.typicode.com",
+        "UI_BASE_URL": "https://example.com",
+    },
+}
+
+API_BASE_URL = ENVIRONMENTS[ENV]["API_BASE_URL"]
+UI_BASE_URL = ENVIRONMENTS[ENV]["UI_BASE_URL"]
