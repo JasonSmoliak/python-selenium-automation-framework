@@ -4,6 +4,7 @@ from urllib3.util.retry import Retry
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
+TIMEOUT = 5  # seconds
 
 def _build_session():
     retry_strategy = Retry(
@@ -27,19 +28,19 @@ SESSION = _build_session()
 
 def get(endpoint, headers=None):
     url = f"{BASE_URL}{endpoint}"
-    return SESSION.get(url, headers=headers)
+    return SESSION.get(url, headers=headers, timeout=TIMEOUT)
 
 
 def post(endpoint, json=None, headers=None):
     url = f"{BASE_URL}{endpoint}"
-    return SESSION.post(url, json=json, headers=headers)
+    return SESSION.post(url, json=json, headers=headers, timeout=TIMEOUT)
 
 
 def put(endpoint, json=None, headers=None):
     url = f"{BASE_URL}{endpoint}"
-    return SESSION.put(url, json=json, headers=headers)
+    return SESSION.put(url, json=json, headers=headers, timeout=TIMEOUT)
 
 
 def delete(endpoint, headers=None):
     url = f"{BASE_URL}{endpoint}"
-    return SESSION.delete(url, headers=headers)
+    return SESSION.delete(url, headers=headers, timeout=TIMEOUT)
