@@ -1,17 +1,6 @@
 import pytest
 from pages.example_page import ExamplePage
 from pages.more_info_page import MoreInfoPage
-from api_client import get
-from utils.api_helpers import assert_status, is_json
-
-@pytest.fixture
-def post_one_data():
-    response = get("/posts/1")
-
-    assert_status(response, 200)
-    assert is_json(response)
-
-    return response.json()
 
 
 @pytest.mark.ui
