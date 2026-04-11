@@ -1,6 +1,17 @@
 import pytest
 from pages.example_page import ExamplePage
 from pages.more_info_page import MoreInfoPage
+from api_client import get
+from utils.api_helpers import assert_status, is_json
+
+@pytest.fixture
+def post_one_data():
+    response = get("/posts/1")
+
+    assert_status(response, 200)
+    assert is_json(response)
+
+    return response.json()
 
 
 @pytest.mark.ui
@@ -37,4 +48,26 @@ def test_homepage_title_and_header(driver):
     assert len(title) > 0, "Page title is empty"
     assert header_text == "Example Domain", (
         f"Expected 'Example Domain', got '{header_text}'"
+    )
+
+@pytest.mark.ui
+def test_ui_with_api_backed_expected_data(driver, post_one_data):
+    page = ExamplePage(driver).load()
+
+    title = page.get_title()
+    header_text = page.heading_text
+
+    print(f"UI title: {title}")
+    print(f"UI header: {header_text}")
+    print(f"API post id: {post_one_data['id']}")
+    print(f"API userId: {post_one_data['userId']}")
+
+    assert title is not None, "Page title is None"
+    assert len(title) > 0, "Page title is empty"
+    assert header_text == "Example Domain", (
+        f"Expected 'Example Domain', got '{header_text}'"
+    )
+
+    assert post_one_data["id"] == 1, (
+        f"Expected API id 1, got {post_one_data['id']}"
     )
