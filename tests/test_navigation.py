@@ -60,3 +60,26 @@ def test_ui_with_api_backed_expected_data(driver, post_one_data):
     assert post_one_data["id"] == 1, (
         f"Expected API id 1, got {post_one_data['id']}"
     )
+
+@pytest.mark.ui
+@pytest.mark.workflow
+def test_example_to_more_info_workflow(driver):
+    example_page = ExamplePage(driver).load()
+
+    print(f"Starting URL: {driver.current_url}")
+    print(f"Starting header: {example_page.heading_text}")
+
+    assert example_page.heading_text == "Example Domain", (
+        f"Expected 'Example Domain', got '{example_page.heading_text}'"
+    )
+
+    more_info_page = example_page.click_more_info()
+
+    print(f"Final URL: {driver.current_url}")
+    print(f"Final header: {more_info_page.heading_text}")
+
+    assert "iana" in driver.current_url.lower(), (
+        f"Expected URL to contain 'iana', got '{driver.current_url}'"
+    )
+    assert more_info_page.heading_text is not None, "More info page header is None"
+    assert len(more_info_page.heading_text) > 0, "More info page header is empty"
