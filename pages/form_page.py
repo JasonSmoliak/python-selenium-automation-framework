@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 
 from pages.base_page import BasePage
 
@@ -30,20 +29,10 @@ class FormPage(BasePage):
         return self
 
     def fill_form(self, contact_name, contact_number, pickup_date, payment_method):
-        name_input = self.wait_for_element(self.CONTACT_NAME)
-        name_input.clear()
-        name_input.send_keys(contact_name)
-
-        number_input = self.wait_for_element(self.CONTACT_NUMBER)
-        number_input.clear()
-        number_input.send_keys(contact_number)
-
-        date_input = self.wait_for_element(self.PICKUP_DATE)
-        date_input.clear()
-        date_input.send_keys(pickup_date)
-
-        payment_select = Select(self.wait_for_element(self.PAYMENT_METHOD))
-        payment_select.select_by_visible_text(payment_method)
+        self.clear_and_type(self.CONTACT_NAME, contact_name)
+        self.clear_and_type(self.CONTACT_NUMBER, contact_number)
+        self.clear_and_type(self.PICKUP_DATE, pickup_date)
+        self.select_by_text(self.PAYMENT_METHOD, payment_method)
 
     def submit(self):
         self.click(self.REGISTER_BUTTON)

@@ -1,4 +1,4 @@
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -29,3 +29,15 @@ class BasePage:
 
     def get_current_url(self):
         return self.driver.current_url
+
+    def type(self, locator, text):
+        self.wait_for_element(locator).send_keys(text)
+
+    def clear_and_type(self, locator, text):
+        element = self.wait_for_element(locator)
+        element.clear()
+        element.send_keys(text)
+
+    def select_by_text(self, locator, text):
+        select = Select(self.wait_for_element(locator))
+        select.select_by_visible_text(text)
