@@ -24,6 +24,15 @@ It validates REST API responses using reusable helper functions and scalable tes
 
 ---
 
+## Framework Highlights
+
+- API client with retries and timeouts
+- Pytest fixtures centralized in `conftest.py`
+- Page Object Model with shared `BasePage`
+- Reusable UI components (`HeaderComponent`, `LinkComponent`)
+- Screenshot capture on UI failure
+- Environment-based configuration for API and UI
+
 ## Tech Stack
 
 • Python
@@ -144,14 +153,14 @@ Initial framework scaffold complete.
 Added Page Object Model scaffold (BasePage + ExamplePage).
 Currently expanding framework structure and preparing for API test layer.
 
-What This Demonstrates
+## Skills Demonstrated
 
-This project showcases:
-• Building a scalable API test framework
-• Designing reusable validation logic
-• Handling real-world API edge cases
-• Structuring tests for maintainability
-• Debugging and maintaining CI pipelines
+- API automation with pytest and requests
+- Selenium UI automation with Page Object Model
+- Reusable fixtures and centralized framework design
+- Retry and timeout handling for reliability
+- Data-driven testing with JSON and parameterization
+- CI-friendly reporting and screenshot capture
 
 ## Example Output
 
