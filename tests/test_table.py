@@ -39,3 +39,26 @@ def test_table_sort_by_last_name(driver):
     assert last_names == expected_names, (
         f"Expected sorted names {expected_names}, got {last_names}"
     )
+
+@pytest.mark.ui
+@pytest.mark.parametrize(
+    "search_term, expected_last_name",
+    [
+        ("Smith", "Smith"),
+        ("Doe", "Doe"),
+        ("Con", "Conway"),
+    ],
+)
+def test_table_filter_by_last_name(driver, search_term, expected_last_name):
+    page = TablePage(driver).load()
+
+    filtered_rows = page.filter_rows_by_last_name(search_term)
+
+    print("Filtered rows:", filtered_rows)
+
+    assert len(filtered_rows) > 0, f"No rows found for search term '{search_term}'"
+
+    last_names = [row[0] for row in filtered_rows]
+    assert any(expected_last_name == name for name in last_names), (
+        f"Expected last name '{expected_last_name}' not found in {last_names}"
+    )
