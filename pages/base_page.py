@@ -41,3 +41,8 @@ class BasePage:
     def select_by_text(self, locator, text):
         select = Select(self.wait_for_element(locator))
         select.select_by_visible_text(text)
+
+    def get_elements(self, locator):
+        return self.wait.until(
+        EC.presence_of_all_elements_located(locator)
+        )
