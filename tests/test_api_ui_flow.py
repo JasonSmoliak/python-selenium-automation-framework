@@ -5,7 +5,14 @@ from utils.api_helpers import assert_status
 
 
 @pytest.mark.ui
-@pytest.mark.parametrize("post_id", [1, 2, 3])
+@pytest.mark.parametrize(
+    "post_id",
+    [
+        pytest.param(1, id="post-1"),
+        pytest.param(2, id="post-2"),
+        pytest.param(3, id="post-3"),
+    ],
+)
 def test_api_and_ui_validate_existing_post(driver, post_by_id, post_id):
     post = post_by_id(post_id)
 
