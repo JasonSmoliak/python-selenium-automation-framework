@@ -3,15 +3,10 @@ import pytest
 from api_client import get
 from utils.api_helpers import assert_status
 
-
 @pytest.mark.ui
-def test_api_and_ui_validate_existing_post(driver):
-    response = get("/posts/1")
-    assert_status(response, 200)
-
-    post = response.json()
-    expected_title = post["title"]
-    expected_body = post["body"]
+def test_api_and_ui_validate_existing_post(driver, post_one):
+    expected_title = post_one["title"]
+    expected_body = post_one["body"]
 
     print("Expected title:", expected_title)
     print("Expected body:", expected_body)

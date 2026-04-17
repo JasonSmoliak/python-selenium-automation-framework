@@ -40,7 +40,7 @@ def test_homepage_title_and_header(driver):
     )
 
 @pytest.mark.ui
-def test_ui_with_api_backed_expected_data(driver, post_one_data):
+def test_ui_with_api_backed_expected_data(driver, post_one):
     page = ExamplePage(driver).load()
 
     title = page.get_title()
@@ -48,8 +48,8 @@ def test_ui_with_api_backed_expected_data(driver, post_one_data):
 
     print(f"UI title: {title}")
     print(f"UI header: {header_text}")
-    print(f"API post id: {post_one_data['id']}")
-    print(f"API userId: {post_one_data['userId']}")
+    print(f"API post id: {post_one['id']}")
+    print(f"API userId: {post_one['userId']}")
 
     assert title is not None, "Page title is None"
     assert len(title) > 0, "Page title is empty"
@@ -57,8 +57,8 @@ def test_ui_with_api_backed_expected_data(driver, post_one_data):
         f"Expected 'Example Domain', got '{header_text}'"
     )
 
-    assert post_one_data["id"] == 1, (
-        f"Expected API id 1, got {post_one_data['id']}"
+    assert post_one["id"] == 1, (
+        f"Expected API id 1, got {post_one['id']}"
     )
 
 @pytest.mark.ui

@@ -26,7 +26,7 @@ def driver():
 # API DATA FIXTURE
 # -------------------------
 @pytest.fixture
-def post_one_data():
+def post_one():
     response = get("/posts/1")
 
     assert_status(response, 200)
