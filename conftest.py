@@ -37,6 +37,20 @@ def post_one():
 import os
 import pytest
 
+from api_client import get
+from utils.api_helpers import assert_status, is_json
+
+
+@pytest.fixture
+def post_by_id():
+    def _get_post(post_id):
+        response = get(f"/posts/{post_id}")
+        assert_status(response, 200)
+        assert is_json(response)
+        return response.json()
+
+    return _get_post
+
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
