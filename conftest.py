@@ -73,3 +73,23 @@ def pytest_runtest_makereport(item, call):
                 extras.append(pytest_html.extras.image(file_name, name="failure screenshot"))
 
     report.extras = extras
+
+from utils.api_client import APIClient
+from utils.data_generator import random_post_data
+
+
+@pytest.fixture
+def created_post():
+    api = APIClient()
+    data = random_post_data()
+
+    post = api.create_post(
+        title=data["title"],
+        body=data["body"],
+        user_id=data["userId"]
+    )
+
+    yield post
+
+    # Cleanup pattern
+    api.delete_post(post["id"])
