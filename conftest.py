@@ -1,9 +1,13 @@
+import os
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from api_client import get
+from utils.api_client import APIClient
 from utils.api_helpers import assert_status, is_json
+from utils.data_generator import random_post_data, seed_data
 
 
 # -------------------------
@@ -23,7 +27,15 @@ def driver():
 
 
 # -------------------------
-# API DATA FIXTURE
+# SEEDED DATA FIXTURE
+# -------------------------
+@pytest.fixture
+def seeded_data():
+    seed_data(42)
+
+
+# -------------------------
+# API DATA FIXTURES
 # -------------------------
 @pytest.fixture
 def post_one():
@@ -33,12 +45,6 @@ def post_one():
     assert is_json(response)
 
     return response.json()
-
-import os
-import pytest
-
-from api_client import get
-from utils.api_helpers import assert_status, is_json
 
 
 @pytest.fixture
@@ -52,6 +58,26 @@ def post_by_id():
     return _get_post
 
 
+@pytest.fixture
+def created_post():
+    api = APIClient()
+    data = random_post_data()
+
+    post = api.create_post(
+        title=data["title"],
+        body=data["body"],
+        user_id=data["userId"]
+    )
+
+    yield post
+
+    # Cleanup pattern
+    api.delete_post(post["id"])
+
+
+# -------------------------
+# SCREENSHOT ON FAILURE
+# -------------------------
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
@@ -70,26 +96,11 @@ def pytest_runtest_makereport(item, call):
 
             pytest_html = item.config.pluginmanager.getplugin("html")
             if pytest_html:
-                extras.append(pytest_html.extras.image(file_name, name="failure screenshot"))
+                extras.append(
+                    pytest_html.extras.image(
+                        file_name,
+                        name="failure screenshot"
+                    )
+                )
 
     report.extras = extras
-
-from utils.api_client import APIClient
-from utils.data_generator import random_post_data
-
-
-@pytest.fixture
-def created_post():
-    api = APIClient()
-    data = random_post_data()
-
-    post = api.create_post(
-        title=data["title"],
-        body=data["body"],
-        user_id=data["userId"]
-    )
-
-    yield post
-
-    # Cleanup pattern
-    api.delete_post(post["id"])

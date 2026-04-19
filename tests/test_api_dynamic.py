@@ -5,7 +5,7 @@ from utils.api_client import APIClient
 
 
 @pytest.mark.api
-def test_create_post_with_dynamic_data():
+def test_create_post_with_seeded_data(seeded_data):
     api = APIClient()
 
     data = random_post_data()
