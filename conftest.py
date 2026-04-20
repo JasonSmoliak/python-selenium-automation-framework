@@ -104,3 +104,13 @@ def pytest_runtest_makereport(item, call):
                 )
 
     report.extras = extras
+
+# -------------------------
+# HTML REPORT METADATA
+# -------------------------
+def pytest_metadata(metadata):
+    metadata.clear()  # removes defaults
+
+    metadata["Project"] = "Selenium Framework"
+    metadata["Browser"] = "Chrome"
+    metadata["Test Type"] = "UI/API Automation"

@@ -75,5 +75,11 @@ class BasePage:
             EC.presence_of_all_elements_located(locator)
         )
 
-    def log(self, message):
-        print(f"[STEP] {message}")
+    def log_info(self, message):
+        print(f"[INFO] {message}")
+
+    def log_pass(self, message):
+        print(f"[PASS] {message}")
+
+    def log_error(self, message):
+        print(f"[ERROR] {message}")

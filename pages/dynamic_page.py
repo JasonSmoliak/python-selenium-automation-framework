@@ -19,38 +19,46 @@ class DynamicPage(BasePage):
         return self
 
     def remove_checkbox(self):
-        self.log("Clicking Remove button")
+        self.log_info("Clicking Remove button")
         self.click(self.REMOVE_BUTTON)
 
-        self.log("Waiting for checkbox to disappear")
+        self.log_info("Waiting for checkbox to disappear")
         self.wait_until_not_visible(self.CHECKBOX)
 
-        self.log("Waiting for Add button to appear")
+        self.log_pass("Checkbox removed successfully")
+
+        self.log_info("Waiting for Add button to appear")
         self.wait_until_present(self.ADD_BUTTON)
 
 
     def add_checkbox(self):
-        self.log("Clicking Add button")
+        self.log_info("Clicking Add button")
         self.click(self.ADD_BUTTON)
 
-        self.log("Waiting for checkbox to appear")
+        self.log_info("Waiting for checkbox to appear")
         self.wait_until_present(self.CHECKBOX)
+
+        self.log_pass("Checkbox added successfully")
 
 
     def enable_input(self):
-        self.log("Clicking Enable button")
+        self.log_info("Clicking Enable button")
         self.click(self.ENABLE_BUTTON)
 
-        self.log("Waiting for input to become enabled")
+        self.log_info("Waiting for input to become enabled")
         self.wait_until_enabled(self.INPUT_FIELD)
+
+        self.log_pass("Input enabled successfully")
 
 
     def disable_input(self):
-        self.log("Clicking Disable button")
+        self.log_info("Clicking Disable button")
         self.click(self.DISABLE_BUTTON)
 
-        self.log("Waiting for input to become disabled")
+        self.log_info("Waiting for input to become disabled")
         self.wait_until_disabled(self.INPUT_FIELD)
+
+        self.log_pass("Input disabled successfully")
 
     def is_input_enabled(self):
         return self.driver.find_element(*self.INPUT_FIELD).is_enabled()
