@@ -74,3 +74,6 @@ class BasePage:
         return self.wait.until(
             EC.presence_of_all_elements_located(locator)
         )
+
+    def log(self, message):
+        print(f"[STEP] {message}")
