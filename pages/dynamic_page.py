@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -21,27 +20,23 @@ class DynamicPage(BasePage):
 
     def remove_checkbox(self):
         self.click(self.REMOVE_BUTTON)
-        self.wait.until(EC.invisibility_of_element_located(self.CHECKBOX))
-        self.wait.until(EC.presence_of_element_located(self.ADD_BUTTON))
+        self.wait_until_not_visible(self.CHECKBOX)
+        self.wait_until_present(self.ADD_BUTTON)
 
     def add_checkbox(self):
         self.click(self.ADD_BUTTON)
-        self.wait.until(EC.presence_of_element_located(self.CHECKBOX))
-        self.wait.until(EC.presence_of_element_located(self.REMOVE_BUTTON))
+        self.wait_until_present(self.CHECKBOX)
+        self.wait_until_present(self.REMOVE_BUTTON)
 
     def enable_input(self):
         self.click(self.ENABLE_BUTTON)
-        self.wait.until(
-            lambda d: d.find_element(*self.INPUT_FIELD).is_enabled()
-        )
-        self.wait.until(EC.presence_of_element_located(self.DISABLE_BUTTON))
+        self.wait_until_enabled(self.INPUT_FIELD)
+        self.wait_until_present(self.DISABLE_BUTTON)
 
     def disable_input(self):
         self.click(self.DISABLE_BUTTON)
-        self.wait.until(
-            lambda d: not d.find_element(*self.INPUT_FIELD).is_enabled()
-        )
-        self.wait.until(EC.presence_of_element_located(self.ENABLE_BUTTON))
+        self.wait_until_disabled(self.INPUT_FIELD)
+        self.wait_until_present(self.ENABLE_BUTTON)
 
     def is_input_enabled(self):
         return self.driver.find_element(*self.INPUT_FIELD).is_enabled()
