@@ -30,7 +30,6 @@ class DynamicPage(BasePage):
         self.log_info("Waiting for Add button to appear")
         self.wait_until_present(self.ADD_BUTTON)
 
-
     def add_checkbox(self):
         self.log_info("Clicking Add button")
         self.click(self.ADD_BUTTON)
@@ -40,7 +39,6 @@ class DynamicPage(BasePage):
 
         self.log_pass("Checkbox added successfully")
 
-
     def enable_input(self):
         self.log_info("Clicking Enable button")
         self.click(self.ENABLE_BUTTON)
@@ -49,7 +47,6 @@ class DynamicPage(BasePage):
         self.wait_until_enabled(self.INPUT_FIELD)
 
         self.log_pass("Input enabled successfully")
-
 
     def disable_input(self):
         self.log_info("Clicking Disable button")
@@ -65,3 +62,11 @@ class DynamicPage(BasePage):
 
     def has_checkbox(self):
         return len(self.driver.find_elements(*self.CHECKBOX)) > 0
+
+    def remove_and_restore_checkbox(self):
+        self.remove_checkbox()
+        self.add_checkbox()
+
+    def enable_and_disable_input(self):
+        self.enable_input()
+        self.disable_input()
