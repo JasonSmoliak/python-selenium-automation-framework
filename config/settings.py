@@ -19,3 +19,6 @@ ENVIRONMENTS = {
 
 API_BASE_URL = ENVIRONMENTS[ENV]["API_BASE_URL"]
 UI_BASE_URL = ENVIRONMENTS[ENV]["UI_BASE_URL"]
+
+BROWSER = os.getenv("BROWSER", "chrome")
+HEADLESS = os.getenv("HEADLESS", "true").lower() == "true"

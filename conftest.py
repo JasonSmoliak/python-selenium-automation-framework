@@ -8,7 +8,7 @@ from api_client import get
 from utils.api_client import APIClient
 from utils.api_helpers import assert_status, is_json
 from utils.data_generator import random_post_data, seed_data
-
+from config.settings import BROWSER, HEADLESS
 
 # -------------------------
 # UI DRIVER FIXTURE
@@ -16,7 +16,10 @@ from utils.data_generator import random_post_data, seed_data
 @pytest.fixture
 def driver():
     options = Options()
-    options.add_argument("--headless=new")
+
+    if HEADLESS:
+        options.add_argument("--headless=new")
+
     options.add_argument("--window-size=1920,1080")
 
     driver = webdriver.Chrome(options=options)
@@ -24,7 +27,6 @@ def driver():
     yield driver
 
     driver.quit()
-
 
 # -------------------------
 # SEEDED DATA FIXTURE

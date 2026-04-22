@@ -47,7 +47,18 @@ class BasePage:
 
     def click(self, locator):
         element = self.wait_until_clickable(locator)
-        element.click()
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});",
+            element
+        )
+
+        self.driver.execute_script("window.scrollBy(0, -100);")
+
+        try:
+            element.click()
+        except Exception:
+            self.driver.execute_script("arguments[0].click();", element)
 
     def get_text(self, locator):
         return self.wait_until_visible(locator).text
