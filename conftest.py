@@ -2,8 +2,8 @@ import os
 
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from api_client import get
 from utils.api_client import APIClient
 from utils.api_helpers import assert_status, is_json
@@ -15,18 +15,35 @@ from config.settings import BROWSER, HEADLESS
 # -------------------------
 @pytest.fixture
 def driver():
-    options = Options()
+    browser = BROWSER.lower()
 
-    if HEADLESS:
-        options.add_argument("--headless=new")
+    if browser == "chrome":
+        options = ChromeOptions()
 
-    options.add_argument("--window-size=1920,1080")
+        if HEADLESS:
+            options.add_argument("--headless=new")
 
-    driver = webdriver.Chrome(options=options)
+        options.add_argument("--window-size=1920,1080")
+
+        driver = webdriver.Chrome(options=options)
+
+    elif browser == "edge":
+        options = EdgeOptions()
+
+        if HEADLESS:
+            options.add_argument("--headless=new")
+
+        options.add_argument("--window-size=1920,1080")
+
+        driver = webdriver.Edge(options=options)
+
+    else:
+        raise ValueError(f"Unsupported browser: {BROWSER}")
 
     yield driver
 
     driver.quit()
+
 
 # -------------------------
 # SEEDED DATA FIXTURE
