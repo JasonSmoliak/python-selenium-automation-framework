@@ -29,8 +29,13 @@ jobs:
 
 
   ui-tests:
-    name: UI Tests
+    name: UI Tests - ${{ matrix.browser }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, edge]
 
     steps:
       - name: Checkout code
@@ -47,5 +52,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run UI tests (parallel)
-        run: python -m pytest -m ui -n 4 -q
+      - name: Run UI tests
+        run: BROWSER=${{ matrix.browser }} python -m pytest -m ui -n 4 -q
