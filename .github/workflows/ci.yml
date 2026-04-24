@@ -24,8 +24,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-       - name: Run UI tests (parallel)
-         run: python -m pytest -m ui -n 4 -q
+      - name: Run API tests
+        run: python -m pytest -m api -q
 
 
   ui-tests:
@@ -47,5 +47,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-       - name: Run API tests (parallel)
-         run: python -m pytest -m api -n 4 -q
+      - name: Run UI tests (parallel)
+        run: python -m pytest -m ui -n 4 -q
