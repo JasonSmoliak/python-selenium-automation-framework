@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run API tests
-        run: make api
+        run: python -m pytest -m api -q
 
   ui-tests:
     name: UI Tests
@@ -45,4 +45,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run UI tests
-        run: make ui
+        run: python -m pytest -m ui -q
