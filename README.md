@@ -134,6 +134,13 @@ Examples:
 - Run only API tests: `make api`
 - Run smoke suite: `make smoke`
 
+## CI/CD Pipeline
+
+- API and UI tests run in separate jobs  
+- UI tests execute in parallel using pytest-xdist  
+- Matrix builds run UI tests across Chrome and Edge  
+- Pip dependencies are cached for faster execution  
+
 ## Reporting
 
 HTML test reports can be generated locally using pytest-html:
