@@ -1,6 +1,4 @@
-- name: Run UI tests (parallel)
-
-  run: python -m pytest -m ui -n 4 -qname: CI
+name: CI
 
 on:
   push:
