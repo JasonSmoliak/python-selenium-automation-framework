@@ -27,13 +27,12 @@ jobs:
       - name: Run API tests
         run: python -m pytest -m api -q --html=reports/api_report.html --self-contained-html
 
-       - name: Upload API report
-          if: always()
-          uses: actions/upload-artifact@v4
-          with:
-            name: api-report
-            path: reports/api_report.html
-
+      - name: Upload API report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-report
+          path: reports/api_report.html
 
   ui-tests:
     name: UI Tests - ${{ matrix.browser }}
@@ -59,19 +58,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-       - name: Run UI tests
-         run: BROWSER=${{ matrix.browser }} python -m pytest -m ui -n 4 -q --html=reports/ui_report_${{ matrix.browser }}.html --self-contained-html
+      - name: Run UI tests
+        run: BROWSER=${{ matrix.browser }} python -m pytest -m ui -n 4 -q --html=reports/ui_report_${{ matrix.browser }}.html --self-contained-html
 
-       - name: Upload UI report
-         if: always()
-         uses: actions/upload-artifact@v4
-         with:
-           name: ui-report-${{ matrix.browser }}
-           path: reports/ui_report_${{ matrix.browser }}.html
+      - name: Upload UI report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-report-${{ matrix.browser }}
+          path: reports/ui_report_${{ matrix.browser }}.html
 
-       - name: Upload UI failure screenshots
-         if: always()
-         uses: actions/upload-artifact@v4
-         with:
-           name: ui-screenshots-${{ matrix.browser }}
-           path: screenshots/ui/failures/
+      - name: Upload UI failure screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots-${{ matrix.browser }}
+          path: screenshots/ui/failures/
