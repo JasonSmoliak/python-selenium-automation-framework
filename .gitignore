@@ -3,7 +3,8 @@ __pycache__/
 .pytest_cache/
 *.pyc
 reports/
-screenshots/
+screenshots/*
+!screenshots/api_report.png
 .env
 .DS_Store
 .idea/
