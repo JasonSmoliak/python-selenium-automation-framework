@@ -135,10 +135,6 @@ Examples:
 - Matrix builds run UI tests across Chrome and Edge  
 - Pip dependencies are cached for faster execution  
 
-## CI Pipeline Example
-
-![CI Pipeline](https://raw.githubusercontent.com/JasonSmoliak/python-selenium-automation-framework/main/screenshots/ci_pipeline.png)
-
 ## Reporting
 
 HTML test reports can be generated locally using pytest-html:
@@ -166,6 +162,10 @@ Currently expanding framework structure and preparing for API test layer.
 - Retry and timeout handling for reliability
 - Data-driven testing with JSON and parameterization
 - CI-friendly reporting and screenshot capture
+
+## Test Report Example
+
+![API Test Report](screenshots/api_report.png)
 
 ## Example Output
 
