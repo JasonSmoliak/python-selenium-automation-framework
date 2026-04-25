@@ -137,7 +137,7 @@ Examples:
 
 ## CI Pipeline Example
 
-![CI Pipeline](screenshots/tests_test_navigation.py_test_page_loads_successfully.png)
+![CI Pipeline](https://raw.githubusercontent.com/JasonSmoliak/python-selenium-automation-framework/main/screenshots/tests_test_navigation.py_test_page_loads_successfully.png))
 
 
 ## Reporting
