@@ -3,24 +3,32 @@
 ![CI](https://github.com/JasonSmoliak/python-selenium-automation-framework/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
-This project is a Python-based API automation framework built using pytest and requests.
 
-It validates REST API responses using reusable helper functions and scalable test patterns.
+This project is a Python-based test automation framework designed for UI and API testing.
+
+It supports:
+- Selenium-based UI testing (Page Object Model)
+- API testing with reusable client utilities
+- Parallel execution with pytest-xdist
+- Multi-browser testing (Chrome, Edge)
+- Environment-based configuration (dev/staging/prod)
+- CI/CD integration with GitHub Actions
+- HTML reporting and artifact uploads
+
+The framework is built with scalability, maintainability, and real-world QA practices in mind.
 
 ---
 
 ## Key Features
 
-- ✅ Status code validation
-- ✅ JSON response validation
-- ✅ Required field validation
-- ✅ Missing key detection (with detailed error reporting)
-- ✅ Partial and full object comparison
-- ✅ Recursive validation for nested JSON
-- ✅ Parameterized testing
-- ✅ JSON-driven test data
-- ✅ Edge case and negative testing
-- ✅ CI integration with GitHub Actions
+- Page Object Model (POM) for UI tests
+- Reusable API client for backend validation
+- Soft and hard assertion strategies
+- Parallel execution with pytest-xdist
+- Multi-browser support via configuration
+- CI pipeline with matrix builds and artifacts
+- Screenshot capture on UI failures
+- HTML reporting for test results
 
 ---
 
@@ -71,33 +79,19 @@ python-selenium-automation-framework/
 
 ## How to Run
 
-## Environment Configuration
+## Run Tests
 
-Create a `.env` file (see `.env.example`) to set environment variables locally:
+### API Tests
+make api
 
-- `BASE_URL` (UI target)
+### UI Tests
+make ui
 
-CI sets environment variables directly in the workflow.
+### UI Tests (headed)
+make ui-headed
 
-## Running Tests
-
-### Run full test suite
-`make test`
-
-### Run smoke tests (UI + API)
-`make smoke`
-
-### Run regression tests
-`make regression`
-
-### Run UI tests only
-`make ui`
-
-### Run API tests only
-`make api`
-
-### Run with verbose output
-./venv/bin/python -m pytest -m api -vv
+### UI Tests (Edge)
+make ui-edge
 
 ## Example Test Patterns
 
@@ -140,6 +134,11 @@ Examples:
 - UI tests execute in parallel using pytest-xdist  
 - Matrix builds run UI tests across Chrome and Edge  
 - Pip dependencies are cached for faster execution  
+
+## CI Pipeline Example
+
+![CI Pipeline](screenshots/tests_test_navigation.py_test_page_loads_successfully.png)
+
 
 ## Reporting
 
