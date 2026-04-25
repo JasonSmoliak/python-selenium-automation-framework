@@ -165,7 +165,7 @@ Currently expanding framework structure and preparing for API test layer.
 
 ## Test Report Example
 
-![API Test Report](screenshots/api_report.png)
+![API Test Report](./screenshots/api_report.png)
 
 ## Example Output
 
