@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 
 from pages.base_page import BasePage
-
 
 class FormPage(BasePage):
     URL = "https://practice.expandtesting.com/form-validation"
