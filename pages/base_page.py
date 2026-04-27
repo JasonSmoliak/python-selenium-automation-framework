@@ -1,11 +1,17 @@
-from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utils.logger import get_logger
 
 
 class BasePage:
+    def __init__(self, driver):
+        self.driver = driver
+        self.logger = get_logger(self.__class__.__name__)
+
     def __init__(self, driver, timeout=10):
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
+        self.logger = get_logger(self.__class__.__name__)
 
     def load(self, url):
         self.driver.get(url)
@@ -88,9 +94,14 @@ class BasePage:
 
     def log_info(self, message):
         print(f"[INFO] {message}")
+        self.logger.info(message)
+
 
     def log_pass(self, message):
         print(f"[PASS] {message}")
+        self.logger.info(f"PASS: {message}")
+
 
     def log_error(self, message):
         print(f"[ERROR] {message}")
+        self.logger.error(message)
