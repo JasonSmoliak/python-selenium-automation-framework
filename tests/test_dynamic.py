@@ -2,6 +2,49 @@ import pytest
 from pages.dynamic_page import DynamicPage
 from utils.assertions import assert_true, assert_false
 
+def remove_checkbox(self):
+    self.log_info("Clicking Remove button")
+    self.click(self.REMOVE_BUTTON)
+
+    self.log_info("Waiting for checkbox to disappear")
+    self.wait_until_not_visible(self.CHECKBOX)
+
+    self.log_pass("Checkbox removed successfully")
+
+    self.log_info("Waiting for Add button to appear")
+    self.wait_until_present(self.ADD_BUTTON)
+
+
+def add_checkbox(self):
+    self.log_info("Clicking Add button")
+    self.click(self.ADD_BUTTON)
+
+    self.log_info("Waiting for checkbox to appear")
+    self.wait_until_present(self.CHECKBOX)
+
+    self.log_pass("Checkbox added successfully")
+
+
+def enable_input(self):
+    self.log_info("Clicking Enable button")
+    self.click(self.ENABLE_BUTTON)
+
+    self.log_info("Waiting for input to become enabled")
+    self.wait_until_enabled(self.INPUT_FIELD)
+
+    self.log_pass("Input enabled successfully")
+
+
+def disable_input(self):
+    self.log_info("Clicking Disable button")
+    self.click(self.DISABLE_BUTTON)
+
+    self.log_info("Waiting for input to become disabled")
+    self.wait_until_disabled(self.INPUT_FIELD)
+
+    self.log_pass("Input disabled successfully")
+
+
 @pytest.mark.ui
 def test_remove_and_add_checkbox(driver):
     print("\n[TEST] Starting remove/add checkbox workflow")
