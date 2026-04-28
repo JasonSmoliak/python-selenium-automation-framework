@@ -8,7 +8,7 @@ class APIClient:
         payload = {
             "title": title,
             "body": body,
-            "userId": user_id
+            "userId": user_id,
         }
 
         response = requests.post(f"{self.BASE_URL}/posts", json=payload)
@@ -16,13 +16,15 @@ class APIClient:
 
         return response.json()
 
+    def create_post_raw(self, payload):
+        return requests.post(f"{self.BASE_URL}/posts", json=payload)
+
+    def get_post(self, post_id):
+        return requests.get(f"{self.BASE_URL}/posts/{post_id}")
+
     def delete_post(self, post_id):
         response = requests.delete(f"{self.BASE_URL}/posts/{post_id}")
         assert response.status_code in (200, 204), (
             f"Delete failed: {response.status_code}"
         )
-        return response
-
-    def get_post(self, post_id):
-        response = requests.get(f"{self.BASE_URL}/posts/{post_id}")
         return response
