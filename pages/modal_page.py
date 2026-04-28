@@ -26,9 +26,8 @@ class ModalPage(BasePage):
             return None
 
     def is_modal_visible(self):
-        return len(self.driver.find_elements(*self.MODAL)) > 0 and (
-            self.driver.find_element(*self.MODAL).is_displayed()
-        )
+        elements = self.driver.find_elements(*self.MODAL)
+        return len(elements) > 0 and elements[0].is_displayed()
 
     @property
     def modal_title_text(self):
