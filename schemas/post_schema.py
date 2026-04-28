@@ -8,3 +8,4 @@ POST_SCHEMA = {
         "body": {"type": "string"},
     },
 }
+
