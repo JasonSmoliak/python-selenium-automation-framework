@@ -7,8 +7,16 @@ from utils.schema_validator import validate_schema
 
 
 @pytest.mark.api
-def test_post_response_matches_schema():
-    response = get("/posts/1")
+@pytest.mark.parametrize(
+    "post_id",
+    [
+        pytest.param(1, id="post-1"),
+        pytest.param(2, id="post-2"),
+        pytest.param(3, id="post-3"),
+    ],
+)
+def test_post_response_matches_schema(post_id):
+    response = get(f"/posts/{post_id}")
 
     assert_status(response, 200)
     assert is_json(response)
