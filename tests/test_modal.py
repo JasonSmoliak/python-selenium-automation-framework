@@ -6,7 +6,9 @@ from pages.modal_page import ModalPage
 def test_modal_appears_on_page_load(driver):
     page = ModalPage(driver).load()
 
-    page.wait_for_modal()
+    modal = page.wait_for_modal()
+
+    assert modal is not None, "Expected modal to appear on page load"
 
     title = page.modal_title_text
     print("Modal title:", title)

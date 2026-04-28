@@ -1,3 +1,4 @@
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -17,8 +18,16 @@ class ModalPage(BasePage):
         return self
 
     def wait_for_modal(self):
-        return self.wait.until(
-            EC.visibility_of_element_located(self.MODAL)
+        try:
+            return self.wait.until(
+                EC.visibility_of_element_located(self.MODAL)
+            )
+        except TimeoutException:
+            return None
+
+    def is_modal_visible(self):
+        return len(self.driver.find_elements(*self.MODAL)) > 0 and (
+            self.driver.find_element(*self.MODAL).is_displayed()
         )
 
     @property
@@ -26,10 +35,9 @@ class ModalPage(BasePage):
         return self.get_text(self.MODAL_TITLE)
 
     def close_modal(self):
-        self.click(self.CLOSE_BUTTON)
-        self.wait.until(
-            EC.invisibility_of_element_located(self.MODAL)
-        )
+        if self.is_modal_visible():
+            self.click(self.CLOSE_BUTTON)
+            self.wait_until_not_visible(self.MODAL)
 
     @property
     def page_heading_text(self):
