@@ -22,3 +22,7 @@ class APIClient:
             f"Delete failed: {response.status_code}"
         )
         return response
+
+    def get_post(self, post_id):
+        response = requests.get(f"{self.BASE_URL}/posts/{post_id}")
+        return response
