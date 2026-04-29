@@ -41,6 +41,10 @@ def assert_status_code(response, expected_code):
         f"Expected status code {expected_code}, but got {actual}"
     )
 
+def assert_empty_json_response(response):
+    data = response.json()
+    assert data == {}, f"Expected empty JSON response, but got {data}"
+
 
 def assert_json_key(response_json, key):
     assert key in response_json, (
