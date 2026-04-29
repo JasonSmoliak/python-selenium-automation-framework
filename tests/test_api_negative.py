@@ -1,7 +1,11 @@
 import pytest
 
 from utils.api_client import APIClient
-from utils.assertions import assert_equals, assert_empty_json_response
+from utils.assertions import (
+    assert_equals,
+    assert_empty_json_response,
+    assert_header_contains,
+)
 
 @pytest.mark.api
 def test_get_nonexistent_post_returns_404():
@@ -10,6 +14,7 @@ def test_get_nonexistent_post_returns_404():
     response = api.get_post(999999)
 
     assert_equals(response.status_code, 404)
+    assert_header_contains(response, "Content-Type", "application/json")
     assert_empty_json_response(response)
 
 @pytest.mark.api

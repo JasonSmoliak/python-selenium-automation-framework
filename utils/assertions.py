@@ -41,6 +41,19 @@ def assert_status_code(response, expected_code):
         f"Expected status code {expected_code}, but got {actual}"
     )
 
+def assert_header_contains(response, header_name, expected_value):
+    actual_value = response.headers.get(header_name)
+
+    assert actual_value is not None, (
+        f"Expected header '{header_name}' to exist, but it was missing"
+    )
+
+    assert expected_value in actual_value, (
+        f"Expected header '{header_name}' to contain '{expected_value}', "
+        f"but got '{actual_value}'"
+    )
+
+
 def assert_empty_json_response(response):
     data = response.json()
     assert data == {}, f"Expected empty JSON response, but got {data}"
