@@ -5,6 +5,7 @@ from utils.assertions import (
     assert_equals,
     assert_empty_json_response,
     assert_header_contains,
+    assert_response_time_under,
 )
 
 @pytest.mark.api
@@ -15,6 +16,7 @@ def test_get_nonexistent_post_returns_404():
 
     assert_equals(response.status_code, 404)
     assert_header_contains(response, "Content-Type", "application/json")
+    assert_response_time_under(response, 2.0)
     assert_empty_json_response(response)
 
 @pytest.mark.api

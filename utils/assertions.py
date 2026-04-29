@@ -41,6 +41,15 @@ def assert_status_code(response, expected_code):
         f"Expected status code {expected_code}, but got {actual}"
     )
 
+def assert_response_time_under(response, max_seconds):
+    actual_time = response.elapsed.total_seconds()
+
+    assert actual_time < max_seconds, (
+        f"Expected response time under {max_seconds}s, "
+        f"but got {actual_time:.3f}s"
+    )
+
+
 def assert_header_contains(response, header_name, expected_value):
     actual_value = response.headers.get(header_name)
 
