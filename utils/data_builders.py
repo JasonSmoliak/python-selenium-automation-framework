@@ -17,5 +17,29 @@ class PostDataBuilder:
         self.data["userId"] = user_id
         return self
 
+    def without_title(self):
+        self.data.pop("title", None)
+        return self
+
+    def without_body(self):
+        self.data.pop("body", None)
+        return self
+
+    def without_user_id(self):
+        self.data.pop("userId", None)
+        return self
+
+    def with_empty_title(self):
+        self.data["title"] = ""
+        return self
+
+    def with_long_title(self, length=256):
+        self.data["title"] = "A" * length
+        return self
+
+    def with_invalid_user_id(self):
+        self.data["userId"] = "invalid-user-id"
+        return self
+
     def build(self):
         return self.data

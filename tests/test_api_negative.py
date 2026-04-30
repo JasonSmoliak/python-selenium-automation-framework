@@ -1,4 +1,6 @@
 import pytest
+from utils.data_builders import PostDataBuilder
+
 
 from utils.api_client import APIClient
 from utils.assertions import (
@@ -23,9 +25,9 @@ def test_get_nonexistent_post_returns_404():
 @pytest.mark.parametrize(
     "payload, expected_status",
     [
-        ({}, 201),
-        ({"title": ""}, 201),
-        ({"userId": "not-a-number"}, 201),
+        (PostDataBuilder().without_title().build(), 201),
+        (PostDataBuilder().with_empty_title().build(), 201),
+        (PostDataBuilder().with_invalid_user_id().build(), 201),
     ],
 )
 def test_create_post_with_invalid_payload(payload, expected_status):
