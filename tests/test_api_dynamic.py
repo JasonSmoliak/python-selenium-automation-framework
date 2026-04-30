@@ -1,6 +1,6 @@
 import pytest
 
-from utils.data_generator import random_post_data
+from utils.data_builders import PostDataBuilder
 from utils.api_client import APIClient
 from utils.assertions import SoftAssert
 
@@ -8,8 +8,7 @@ from utils.assertions import SoftAssert
 @pytest.mark.api
 def test_create_post_with_seeded_data(seeded_data):
     api = APIClient()
-    data = random_post_data()
-
+    data = PostDataBuilder().build()
     print("Generated data:", data)
 
     response = api.create_post(
