@@ -82,6 +82,7 @@ def test_example_api_negative(endpoint, expected_status):
 
     assert_status(response, expected_status)
 
+@pytest.mark.smoke
 @pytest.mark.api
 def test_all_posts_have_titles():
     response = get("/posts")
@@ -180,6 +181,7 @@ def test_all_posts_have_valid_structure_and_types():
     assert len(ids) == len(set(ids)), "Duplicate IDs found in response"
 
 @pytest.mark.api
+@pytest.mark.smoke
 def test_post_1_expected_values():
     response = get("/posts/1")
 
