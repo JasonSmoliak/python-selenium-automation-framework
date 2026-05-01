@@ -30,11 +30,11 @@ jobs:
   api-tests:
     name: API Tests
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-   	if: github.event_name == 'push'
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -106,6 +106,7 @@ jobs:
         with:
           name: ui-screenshots-${{ matrix.browser }}
           path: screenshots/ui/failures/
+          if-no-files-found: ignore
 
       - name: Upload UI logs
         if: always()
