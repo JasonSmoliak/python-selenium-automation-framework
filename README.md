@@ -27,23 +27,21 @@ A production-style QA automation framework built with:
 
 ## Running Tests
 
+```bash
 make help
 make smoke
 make api
 make ui
 make regression
-
 ---
-
-# Step 4 — Add Project Structure
 
 ## Project Structure
 
-pages/        # UI Page Object Models
-tests/        # UI + API test suites
-utils/        # Helpers, assertions, data builders
-schemas/      # API schemas
-config/       # Environment configuration
+pages/     # UI Page Object Models
+tests/     # UI + API test suites
+utils/     # Helpers, assertions, data builders
+schemas/   # API schemas
+config/    # Environment configuration
 
 ## CI/CD
 
