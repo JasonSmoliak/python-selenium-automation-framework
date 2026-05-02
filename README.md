@@ -33,7 +33,6 @@ make smoke
 make api
 make ui
 make regression
----
 
 ## Project Structure
 
@@ -42,6 +41,8 @@ tests/     # UI + API test suites
 utils/     # Helpers, assertions, data builders
 schemas/   # API schemas
 config/    # Environment configuration
+
+---
 
 ## CI/CD
 
@@ -59,7 +60,7 @@ Artifacts available after each run:
 
 ## Test Report Example
 
-[API Test Report](./screenshots/api_report.png)
+![API Test Report](./screenshots/api_report.png)
 
 ## Why This Project
 
