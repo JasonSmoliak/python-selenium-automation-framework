@@ -33,14 +33,19 @@ make smoke
 make api
 make ui
 make regression
+```
+
+---
 
 ## Project Structure
 
+```text
 pages/     # UI Page Object Models
 tests/     # UI + API test suites
 utils/     # Helpers, assertions, data builders
 schemas/   # API schemas
 config/    # Environment configuration
+```
 
 ---
 
@@ -58,9 +63,13 @@ Artifacts available after each run:
 - Failure screenshots
 - Execution logs
 
+---
+
 ## Test Report Example
 
-![API Test Report](./screenshots/api_report.png)
+![API Test Report](screenshots/api_report.png)
+
+---
 
 ## Why This Project
 
