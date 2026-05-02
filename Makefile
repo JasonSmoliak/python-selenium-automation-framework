@@ -1,7 +1,17 @@
-.PHONY: test smoke workflow performance regression report smoke-report api ui parallel \
-        ui-headed ui-edge ui-edge-headed ui-staging api-staging ui-prod
+.PHONY: help test smoke api api-smoke ui ui-smoke regression report smoke-report parallel ui-headed ui-edge ui-edge-headed ui-staging api-staging ui-prod
 
 PYTHON := ./venv/bin/python
+
+help:
+	@echo "Available commands:"
+	@echo "  make smoke        - Run smoke tests"
+	@echo "  make api          - Run API tests"
+	@echo "  make ui           - Run UI tests"
+	@echo "  make regression   - Run non-smoke regression tests"
+	@echo "  make report       - Generate HTML test report"
+	@echo "  make ui-headed    - Run UI tests in headed Chrome"
+	@echo "  make ui-edge      - Run UI tests in Edge"
+	@echo "  make parallel     - Run tests in parallel"
 
 test:
 	./venv/bin/python -m pytest -q
