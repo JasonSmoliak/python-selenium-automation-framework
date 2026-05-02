@@ -59,7 +59,7 @@ Artifacts available after each run:
 
 ## Test Report Example
 
-![API Test Report](./screenshots/api_report.png)
+[API Test Report](./screenshots/api_report.png)
 
 ## Why This Project
 
